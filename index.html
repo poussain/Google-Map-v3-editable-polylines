@@ -1,0 +1,124 @@
+<html> 
+<head> 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/> 
+<title>Google Maps JavaScript API v3 Example: Overlay Simple</title> 
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+<script src="EditablePolyline.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+function initialize() {
+  var myLatLng = new google.maps.LatLng(48.477929,7.445297);
+  var myOptions = {
+    zoom: 14,
+    center: myLatLng,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+	var flightPath = new EditablePolyline({
+		strokeColor: "#CC0000",
+		strokeWeight: 3
+	});
+	flightPath.setMap(map);
+	flightPath.startDrawing();
+	
+	google.maps.event.addListener(flightPath, 'click', function() {
+		if (this.isEditing()) {
+			this.disableEditing();
+		}
+		else
+		{
+		  	this.enableEditing();
+		};
+	});
+
+
+}
+</script> 
+</head> 
+<body onload="initialize()"> 
+	<div id="map_canvas" style="width:80%;height:600px;float:right;"></div> 
+  <div style="width:60%">
+  	<h1>Sample of Editable Polyline object</h1>
+	<h2>Test it on this map :</h2>
+	<ol>
+		<li>Draw a polyline by clicking several point on the map.</li>
+		<li>You can also add points by clicking on the points of the polyline.</li>
+		<li>Finish the polyline by clicking on it's first or last point.</li>
+		<li>Toggle editing by clicking on the polyline.</li>
+		<li>To edit the line, you can drag it's points. </li>
+		<li>You can add points by dragging the points on the middle of the line (with a little "+")</li>
+		<li>You can delete points by clicking on the white squares</li>
+	</ol>
+	<h2>Use it on your website</h2>
+	<ol>
+		<li>Download <a href="EditablePolyline.js">the Editable Polyline javascript file</a>, <a href="edit_marker_mid.png">the first</a> and <a href="edit_marker_end.png">the second</a> marker image file</li>
+		<li>Put them in the same folder, and add the script to your page 
+			
+		</li>
+		<li>
+			It works just like a regular polyline :
+			<ol>
+				<li>Create the object :
+					<br /><br />
+					<em>
+						var flightPath = new EditablePolyline({regular polyline options});
+					</em><br /><br />
+				</li>
+				<li>You can add a path :
+					<br /><br />
+					<em>
+						var flightPlanCoordinates = [<br />
+					    new google.maps.LatLng(37.772323, -122.214897),<br />
+					    new google.maps.LatLng(21.291982, -157.821856),<br />
+					    new google.maps.LatLng(-18.142599, 178.431),<br />
+					    new google.maps.LatLng(-27.46758, 153.027892)<br />
+					  ];<br />
+					  </em>
+					<dl>
+						<dt>in the options :</dt>
+						<dd>
+							<em>var flightPath = new EditablePolyline({path:flightPlanCoordinates});
+								<br />
+								flightPath.setMap(map);
+								
+								</em>
+						</dd>
+						<dt>by invoking the "setPath" method :</dt>
+						<dd>
+							<em>
+								var flightPath = new EditablePolyline();<br />
+								flightPath.setPath(flightPlanCoordinates)<br />
+								flightPath.setMap(map);
+								
+							</em>
+						</dd>
+						<dt>or by letting the user drawing it :</dt>
+						<dd>
+						<em>	flightPath.setMap(map);<br />
+							flightPath.startDrawing();
+						</em>
+						</dd>
+					</dl>
+				</li>
+				<li>Toggle editing by setting an event listener :<br /><br />
+					<em>
+					google.maps.event.addListener(flightPath, 'click', function() {<br />
+						if (this.isEditing()) {<br />
+							this.disableEditing();<br />
+						}<br />
+						else<br />
+						{<br />
+						  	this.enableEditing();<br />
+						};<br />
+					});<br />
+					</em>
+				</li>
+			</ol> 
+		</li>
+	</ol>
+  </div>
+</body> 
+</html>
