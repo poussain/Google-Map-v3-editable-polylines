@@ -3,11 +3,11 @@ var mOrigin= new google.maps.Point(0,0);
 var mAnchor = new google.maps.Point(10, 30);
 
 
-var endMarkerImage = new google.maps.MarkerImage('edit_marker_end.png',
+var endMarkerImage = new google.maps.MarkerImage('http://stoeffler.cc/open_source/google-map-v3-editable-polyline/edit_marker_end.png',
     mSize,
     mOrigin,
     mAnchor);
-var midMarkerImage = new google.maps.MarkerImage('edit_marker_mid.png',
+var midMarkerImage = new google.maps.MarkerImage('http://stoeffler.cc/open_source/google-map-v3-editable-polyline/edit_marker_mid.png',
  		mSize,
 		mOrigin,
 		mAnchor);
