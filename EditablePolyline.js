@@ -28,7 +28,9 @@ function EditablePolyline(options) {
 	this.is_editing = false;
 	this.setOptions(options);
 	this.editPolyline = new google.maps.Polyline({
-	  strokeOpacity: 0.4
+	  strokeOpacity: 0.4,
+		strokeWeight: 3
+	
 	});
 	this.editMarkers = [];	
 	this.drawMarkers = [];	
@@ -121,10 +123,7 @@ EditablePolyline.prototype.attachData = function(new_data) {
 
 EditablePolyline.prototype.enableEditing = function() {
 	this.endDrawing();
-	this.editPolyline.setOptions({
-		strokeColor: this.strokeColor,
-		strokeWeight: this.strokeWeight * 3
-	})
+	this.editPolyline.setOptions({strokeColor: this.strokeColor})
 	this.addEditMarkers();
 	this.is_editing = true;
 }
