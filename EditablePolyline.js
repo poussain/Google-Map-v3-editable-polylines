@@ -1,11 +1,16 @@
+var mSize = new google.maps.Size(32, 32);
+var mOrigin= new google.maps.Point(0,0);
+var mAnchor = new google.maps.Point(10, 30);
+
+
 var endMarkerImage = new google.maps.MarkerImage('edit_marker_end.png',
-    new google.maps.Size(11, 11),
-    new google.maps.Point(0,0),
-    new google.maps.Point(6, 6));
+    mSize,
+    mOrigin,
+    mAnchor);
 var midMarkerImage = new google.maps.MarkerImage('edit_marker_mid.png',
-     new google.maps.Size(11, 11),
-     new google.maps.Point(0,0),
-     new google.maps.Point(6, 6));
+ 		mSize,
+		mOrigin,
+		mAnchor);
 
 
 function radius(p1, p2) {
@@ -61,10 +66,10 @@ EditablePolyline.prototype.addDrawMarker = function(position) {
   });
 	marker.setMap(this.getMap());	
 	this.drawMarkers.push(marker)
-	currentLine.refreshMarkers();
+	currentLine.refreshMarkersListeners();
 }
 
-EditablePolyline.prototype.refreshMarkers = function() {
+EditablePolyline.prototype.refreshMarkersListeners = function() {
 	for (var i = this.drawMarkers.length - 1; i >= 0; i--){
 		currentLine = this;
 		google.maps.event.clearListeners(this.drawMarkers[i], 'click');
@@ -87,7 +92,7 @@ EditablePolyline.prototype.refreshMarkers = function() {
 			google.maps.event.addListener(this.drawMarkers[i], 'click', function() {
 				// Other markers, add point to the line
 				currentLine.getPath().push(this.getPosition())
-				currentLine.refreshMarkers();
+				currentLine.refreshMarkersListeners();
 			});
 			
 		};
@@ -175,7 +180,7 @@ EditablePolyline.prototype.addEditMarker = function(location,middle,i)
   });
 	if (middle) {
 		marker.setIcon(midMarkerImage);
-		
+		marker.setTitle('Drag me to add a point.')
 				var currentLine = this;
 				//keeps a reference to the object, since "this" in event listener is replaced by the marker
 				
@@ -198,6 +203,7 @@ EditablePolyline.prototype.addEditMarker = function(location,middle,i)
 	}
 	else {
 		marker.setIcon(endMarkerImage);
+		marker.setTitle('Click me to remove me, drag me to change my position.')
 		
 		var currentLine = this;
 		//keeps a reference to the object, since "this" in event listener is replaced by the marker
